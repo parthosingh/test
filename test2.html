@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script >
+// Constructor function for Student details
+function Student(name, roll_no, classVal, section, marks_of_5_subjects) {
+  this.name = name;
+  this.roll_no = roll_no;
+  this.classVal = classVal;
+  this.section = section;
+  this.marks_of_5_subjects = marks_of_5_subjects;
+
+  // Method to print top three subject names based on marks
+  this.printTop3Subjects = function() {
+    const marks = this.marks_of_5_subjects;
+    const sortedSubjects = Object.keys(marks).sort((a, b) => marks[b] - marks[a]).slice(0, 3);
+    console.log('Top three subjects:', sortedSubjects);
+  };
+
+  // Method to print report card
+  this.printReportCard = function() {
+    console.log('+--------------------+');
+    console.log('|     REPORT CARD    |');
+    console.log('+--------------------+');
+    console.log('| Name     - ' + this.name);
+    console.log('| Roll no. - ' + this.roll_no);
+    console.log('| Class    - ' + this.classVal);
+    console.log('| Section  - ' + this.section);
+    
+    // Print marks of each subject
+    for (const subject in this.marks_of_5_subjects) {
+      const padding = ' '.repeat(Math.max(0, 15 - subject.length)); // Ensure padding is not negative
+      console.log('| ' + subject.replace('_', ' ') + padding + '- ' + this.marks_of_5_subjects[subject]);
+    }
+
+    // Calculate and print percentage
+    const totalMarks = Object.values(this.marks_of_5_subjects).reduce((acc, curr) => acc + curr, 0);
+    const percentage = (totalMarks / (Object.keys(this.marks_of_5_subjects).length * 100)) * 100;
+    console.log('| Percentage - ' + percentage.toFixed(1) + ' %');
+    console.log('+--------------------+');
+  };
+}
+
+// Example usage:
+const student = new Student(
+  'Partho',
+  16,
+  'X',
+  'A',
+  {
+    science: 72,
+    maths: 75,
+    social_science: 79,
+    english: 80,
+    hindi: 67
+  }
+);
+
+student.printTop3Subjects(); // Prints top three subjects
+student.printReportCard(); // Prints the report card
+
+</script>
